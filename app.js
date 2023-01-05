@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 // connect to MONGODB
-const dbURI = 'mongodb+srv://customer:9849gubba@customer.gqkcm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const dbURI = 'mongodb+srv://sainithin:gubba12345@cluster0.iaptfbs.mongodb.net/?retryWrites=true&w=majority'
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 	.then((result) => app.listen(3000)) // listen for requests
 	.catch((err) => console.log(err))
@@ -16,6 +16,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 app.set('view engine', 'ejs')
 const customer = require('./models/customer')
 const product = require('./models/product')
+const admin = require('./models/admin')
 const { json } = require('express')
 
 
@@ -70,7 +71,7 @@ app.post('/index', async (req, res) => {
 					if(tempCust.email == email){
 						if (tempCust.password === password) {
 							cust = tempCust;
-							res.status(201).render("index1");
+							res.status(201).render("index1", {cust});
 						}
 						else {
 							res.send("<h1>password not exists</h1>");
@@ -84,25 +85,34 @@ app.post('/index', async (req, res) => {
 	}
 })
 
-// admin Login
-app.post('/admin', async (req, res) => {
-	try {
-		const email = req.body.email;
-		const password = req.body.password;
+// // admin Login
+// adm = null;
+// app.post('/admin', async (req, res) => {
+// 	try {
+// 		const email = req.body.email;
+// 		const password = req.body.password;
 
-		const useremail = await admin.findOne({email:email});
-		console.log('hi');
-		console.log(useremail);
-		if(useremail.password === password){
-			res.status(201).render("admin");
-		}else{
-			res.send("Passwords not matched");
-		}
-	}
-	catch (error) {
-		res.status(400).send("<h1>invalid email</h1>")
-	}
-})
+// 		admin.find()
+// 			.then((result) => {
+// 				console.log(result);
+// 				result.forEach(temp => {
+// 					//console.log(result);
+// 					if(temp.email == email){
+// 						if (temp.password === password) {
+// 							adm = temp;
+// 							res.status(201).render("admin", {adm});
+// 						}
+// 						else {
+// 							res.send("<h1>password not exists</h1>");
+// 						}
+// 					}
+// 				});
+// 			})
+// 	}
+// 	catch (error) {
+// 		res.status(400).send("<h1>invalid email</h1>")
+// 	}
+// })
 
 // medicines
 app.get('/medicines', (req, res) => {
@@ -284,6 +294,9 @@ app.post('/custUnblock/:uid',async (req,res)=>{
 // send html pages
 app.get('/', (req, res) => {
 	res.render('index');
+	if(cust == null){
+		res.render('login');
+	}
 });
 
 app.get('/index1', (req, res) => {
@@ -324,6 +337,10 @@ app.get('/bookingform',(req,res)=>{
 
 app.get('/paymentform',(req,res)=>{
 	res.render('paymentform');
+});
+
+app.get('/adminlogin',(req,res)=>{
+	res.render('adminlogin');
 });
 
 // 404

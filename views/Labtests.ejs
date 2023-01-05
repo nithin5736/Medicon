@@ -26,6 +26,77 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;600&family=Ubuntu:wght@300;400&display=swap"
         rel="stylesheet">
+
+        <style>
+            * {
+              box-sizing: border-box;
+            }body{
+              background-image:url("");
+            }
+            .openBtn {
+              display: flex;
+              justify-content: left;
+            }
+            .openButton {
+              border: none;
+              border-radius: 5px;
+              background-color: #1c87c9;
+              color: white;
+              padding: 14px 20px;
+              cursor: pointer;
+              position: fixed;
+              margin-left:40%;
+            }
+            .loginPopup {
+              position: relative;
+              text-align: center;
+              width: 100%;
+            }
+            .formPopup {
+              display: none;
+              position: fixed;
+              left: 45%;
+              top: 5%;
+              transform: translate(-50%, 5%);
+              border: 3px solid #999999;
+              z-index: 9;
+            }
+            .formContainer {
+              max-width: 300px;
+              padding: 20px;
+              background-color: #fff;
+            }
+            .formContainer input[type=text],
+            .formContainer input[type=password] {
+              width: 100%;
+              padding: 15px;
+              margin: 5px 0 20px 0;
+              border: none;
+              background: #eee;
+            }
+            .formContainer input[type=text]:focus,
+            .formContainer input[type=password]:focus {
+              background-color: #ddd;
+              outline: none;
+            }
+            .formContainer .btn {
+              padding: 12px 20px;
+              border: none;
+              background-color: #8ebf42;
+              color: #fff;
+              cursor: pointer;
+              width: 100%;
+              margin-bottom: 15px;
+              opacity: 0.8;
+            }
+            .formContainer .cancel {
+              background-color: #cc0000;
+            }
+            .formContainer .btn:hover,
+            .openButton:hover {
+              opacity: 1;
+            }
+          </style>
 </head>
 
 <body>
@@ -133,7 +204,7 @@
                             <span>RTPCR</span>
                         </div>
                         <div class="card-back">
-                            <a href="/bookingform"><button class="btn btn-light" id="book-btn">Rs.500</button></a>
+                          <button class="btn btn-light" onclick="paymentnow()" id="book-btn">Rs.500</button>
                         </div>
                     </div>
                 </div>
@@ -146,7 +217,7 @@
                             <span>Thyroid</span>
                         </div>
                         <div class="card-back">
-                            <a href="/bookingform"><button class="btn btn-light" id="book-btn">Rs.600</button></a>
+                            <button class="btn btn-light" onclick="paymentnow()" id="book-btn">Rs.600</button>
                         </div>
                     </div>
                 </div>
@@ -160,7 +231,7 @@
                             <span>Diabetes</span>
                         </div>
                         <div class="card-back">
-                            <a href="/bookingform"><button class="btn btn-light" id="book-btn">Rs.800</button></a>
+                           <button class="btn btn-light" onclick="paymentnow()" id="book-btn">Rs.800</button>
                         </div>
                     </div>
                 </div>
@@ -181,7 +252,7 @@
                             <span>CBC</span>
                         </div>
                         <div class="card-back">
-                            <a href="/bookingform"><button class="btn btn-light" id="book-btn">Rs.750</button></a>
+                            <button class="btn btn-light" onclick="paymentnow()" id="book-btn">Rs.750</button>
                         </div>
                     </div>
                 </div>
@@ -194,7 +265,7 @@
                             <span>Urinalysis</span>
                         </div>
                         <div class="card-back">
-                            <a href="/bookingform"><button class="btn btn-light" id="book-btn">Rs.650</button></a>
+                           <button class="btn btn-light" onclick="paymentnow()" id="book-btn">Rs.650</button>
                         </div>
                     </div>
                 </div>
@@ -208,7 +279,7 @@
                             <span>Malaria</span>
                         </div>
                         <div class="card-back">
-                            <a href="/bookingform"><button class="btn btn-light" id="book-btn">Rs.800</button></a>
+                           <button class="btn btn-light" onclick="paymentnow()" id="book-btn">Rs.800</button>
                         </div>
                     </div>
                 </div>
@@ -229,7 +300,7 @@
                             <span>Dengue</span>
                         </div>
                         <div class="card-back">
-                            <a href="/bookingform"><button class="btn btn-light" id="book-btn">Rs.900</button></a>
+                            <button class="btn btn-light" onclick="paymentnow()" id="book-btn">Rs.900</button>
                         </div>
                     </div>
                 </div>
@@ -242,7 +313,7 @@
                             <span>Body checkup</span>
                         </div>
                         <div class="card-back">
-                            <a href="/bookingform"><button class="btn btn-light" id="book-btn">Rs.400</button></a>
+                            <button class="btn btn-light" onclick="paymentnow()" id="book-btn">Rs.400</button>
                         </div>
                     </div>
                 </div>
@@ -256,7 +327,7 @@
                             <span>Plattelete count</span>
                         </div>
                         <div class="card-back">
-                            <a href="/bookingform"><button class="btn btn-light" id="book-btn">Rs.700</button></a>
+                            <button class="btn btn-light" onclick="paymentnow()" id="book-btn">Rs.700</button>
                         </div>
                     </div>
                 </div>
@@ -264,6 +335,43 @@
 
         </div>
     </div>
+
+    <script>
+            function paymentnow() {
+              document.getElementById("popupForm").style.display = "block";
+            }
+            function closeForm() {
+              document.getElementById("popupForm").style.display = "none";
+            }
+    </script>
+
+<center>
+    <div class="loginPopup">
+        <div class="formPopup" id="popupForm">
+          <form action="/action_page.php" class="formContainer">
+            <label for="name">
+              <strong>Card Number</strong>
+            </label>
+            <input type="text" id="email" placeholder="Card Number" name="name" required>
+            <label for="psw">
+              <strong>Expiry Date</strong>
+            </label>
+            <input type="text" id="psw" placeholder="Expiry Date" name="psw" required>
+            <label for="mobile">
+              <strong>CVV Number</strong>
+            </label>
+            <input type="text" id="mobile" placeholder="CVV Number" name="mobile" required>
+            <label for="test">
+              <strong>Card Holder Name</strong>
+            </label>
+            <input type="text" id="testname" placeholder="Card Holder Name" name="test" required>
+            <button type="submit" class="btn">PAY</button>
+            
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+          </form>
+        </div>
+      </div>
+    </center>
 
     <!-- footer -->
     <footer class="text-muted py-5">
